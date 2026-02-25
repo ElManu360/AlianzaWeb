@@ -121,7 +121,7 @@ public class CompraEntradaService {
 		return compraEntradaRepository.save(compraEntrada);
 	}
 
-    public byte[] generarBoletaPDF(int idCompra) {
+   /* public byte[] generarBoletaPDF(int idCompra) {
         
         // Si la librería de Jasper no está en el pom, esta sección dará error.
         try (java.sql.Connection connection = dataSource.getConnection()) { // Usar try-with-resources
@@ -150,5 +150,5 @@ public class CompraEntradaService {
             // La excepción ahora será visible en la consola.
             throw new RuntimeException("Fallo en la generación del PDF con JasperReports.", e);
         }
-    }
+    }*/
 }

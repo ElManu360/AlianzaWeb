@@ -107,7 +107,7 @@ public class EntradaController {
             return "redirect:/Entradas/disponibles"; 
         }
     }
-    @GetMapping("/boleta/{idCompra}")
+   /* @GetMapping("/boleta/{idCompra}")
     public ResponseEntity<byte[]> generarBoleta(@PathVariable Integer idCompra) {
         
         byte[] pdfBytes;
@@ -137,5 +137,5 @@ public class EntradaController {
             // 4. Si falla, devolver una respuesta de error 500 o un PDF vacío
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 }
