@@ -1,0 +1,217 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="reporteentrada" language="java" columnCount="1" pageWidth="420" pageHeight="595" orientation="Landscape" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="efa80fea-adcc-41fd-95f9-ec15e8e511b2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="alianza"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="ID_COMPRA" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT
+    -- Datos de la Transacción de la Boleta
+    CE.id_compra,
+    CE.fecha_compra,
+    CE.cantidad,
+    CE.precio_unitario,
+    CE.total,
+    CE.metodo_pago,
+    CE.numero_asiento,
+    
+    -- Datos del Ticket/Evento (Tabla Entrada)
+    E.partido,
+    E.fecha_partido,
+    E.estadio,
+    E.zona,
+    
+    -- Datos del Cliente (Tabla Cliente y Usuario)
+    CL.nombres AS nombre_cliente,
+    CL.apellidos AS apellido_cliente,
+    CL.documento_identidad AS dni_cliente,
+    U.email AS email_usuario
+    
+FROM 
+    CompraEntrada CE
+    
+INNER JOIN 
+    Entrada E ON CE.id_entrada_fk = E.id_entrada
+INNER JOIN 
+    Cliente CL ON CE.id_cliente_fk = CL.id_cliente
+INNER JOIN 
+    Usuario U ON CL.id_usuario_fk = U.id_usuario
+    WHERE 
+    CE.id_compra = $P{ID_COMPRA} -- Filtra por el ID que pasamos desde Java
+]]></query>
+	<field name="id_compra" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_compra"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_compra"/>
+	</field>
+	<field name="fecha_compra" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_compra"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_compra"/>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
+	</field>
+	<field name="precio_unitario" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="precio_unitario"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_unitario"/>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+	</field>
+	<field name="metodo_pago" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="metodo_pago"/>
+		<property name="com.jaspersoft.studio.field.label" value="metodo_pago"/>
+	</field>
+	<field name="numero_asiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero_asiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_asiento"/>
+	</field>
+	<field name="partido" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="partido"/>
+		<property name="com.jaspersoft.studio.field.label" value="partido"/>
+	</field>
+	<field name="fecha_partido" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_partido"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_partido"/>
+	</field>
+	<field name="estadio" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estadio"/>
+		<property name="com.jaspersoft.studio.field.label" value="estadio"/>
+	</field>
+	<field name="zona" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="zona"/>
+		<property name="com.jaspersoft.studio.field.label" value="zona"/>
+	</field>
+	<field name="nombre_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_cliente"/>
+	</field>
+	<field name="apellido_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellido_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellido_cliente"/>
+	</field>
+	<field name="dni_cliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dni_cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="dni_cliente"/>
+	</field>
+	<field name="email_usuario" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email_usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="email_usuario"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="83" splitType="Stretch">
+		<element kind="image" uuid="17d320e0-7541-4b58-9bf0-57fbd53707dc" x="0" y="5" width="150" height="72">
+			<expression><![CDATA["img/entrada/vs.png"]]></expression>
+		</element>
+		<element kind="textField" uuid="097eecab-b055-42a7-a1e0-acad1a458b8d" x="130" y="20" width="230" height="42" fontSize="22.0" hTextAlign="Center">
+			<expression><![CDATA[$F{partido}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af8a1dd2-b7e8-4fa7-861c-e5b20fb8783f"/>
+		</element>
+		<element kind="textField" uuid="069fab2f-7bfc-4f01-9c73-376aa4091663" x="320" y="53" width="59" height="17">
+			<expression><![CDATA[$F{estadio}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2b1df71-b79c-45dd-9ffe-b9b6964f5463"/>
+		</element>
+		<element kind="staticText" uuid="0db3ef4c-d5e6-4344-8ac9-3a3c1237e1fe" x="270" y="54" width="40" height="15">
+			<text><![CDATA[estadio:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2b1df71-b79c-45dd-9ffe-b9b6964f5463"/>
+		</element>
+		<element kind="textField" uuid="1838bfa4-57c6-46b1-8b56-3014d49c2ec9" x="305" y="5" width="88" height="19">
+			<expression><![CDATA[$F{fecha_partido}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0caf1276-4d37-4a78-9907-8d9acc09aea0"/>
+		</element>
+	</title>
+	<columnHeader height="37" splitType="Stretch">
+		<element kind="textField" uuid="36125d6b-b653-4d3a-8153-3ddf7e8db089" x="60" y="7" width="50" height="19">
+			<expression><![CDATA[$F{zona}]]></expression>
+		</element>
+		<element kind="staticText" uuid="48bbd150-5a86-40a3-b636-64d44a61c9f9" x="10" y="7" width="50" height="18">
+			<text><![CDATA[Tipo:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="888f7042-db51-4618-ba77-565a37d4c28e"/>
+		</element>
+		<element kind="staticText" uuid="50e52639-d5aa-4011-a5f7-5ab5e30c97fa" x="130" y="7" width="50" height="18">
+			<text><![CDATA[cantidad:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e063c2e-1321-4fe4-bc18-cb11236d92c4"/>
+		</element>
+		<element kind="textField" uuid="94cfd43d-cd9c-4447-ae6e-84e2590755f7" x="180" y="7" width="60" height="18">
+			<expression><![CDATA[$F{cantidad}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e063c2e-1321-4fe4-bc18-cb11236d92c4"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<element kind="textField" uuid="0768f4af-1f2e-4608-840e-be77ceb467c4" x="70" y="0" width="90" height="18">
+				<expression><![CDATA[$F{nombre_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b4e59c3d-9330-401c-a5ed-0f41fe08d4ba"/>
+			</element>
+			<element kind="textField" uuid="b50125e7-a010-4ba7-be01-fcb1e6126237" x="300" y="-1" width="99" height="16">
+				<expression><![CDATA[$F{numero_asiento}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="888f7042-db51-4618-ba77-565a37d4c28e"/>
+			</element>
+			<element kind="staticText" uuid="8b410ecb-4df9-4dde-87be-b72b8665acac" x="250" y="0" width="50" height="18">
+				<text><![CDATA[N°asiento:]]></text>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="888f7042-db51-4618-ba77-565a37d4c28e"/>
+			</element>
+			<element kind="staticText" uuid="65318d92-51d4-4743-b124-933ccad27ac7" x="10" y="-1" width="50" height="20">
+				<text><![CDATA[Nombres:]]></text>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b4e59c3d-9330-401c-a5ed-0f41fe08d4ba"/>
+			</element>
+			<element kind="textField" uuid="70767110-661d-4453-8a6c-b9352a7eeb17" x="70" y="19" width="90" height="20">
+				<expression><![CDATA[$F{apellido_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e67d739b-d044-416b-9198-650476b7a21d"/>
+			</element>
+			<element kind="staticText" uuid="ca519a55-0998-41a9-85d0-0819a7db4c92" x="10" y="19" width="50" height="20">
+				<text><![CDATA[Apellidos:]]></text>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e67d739b-d044-416b-9198-650476b7a21d"/>
+			</element>
+			<element kind="textField" uuid="218735ee-c154-4ccb-8b87-54ba7ff1bdd4" x="70" y="40" width="90" height="18">
+				<expression><![CDATA[$F{dni_cliente}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e07a915a-5537-4551-b314-9300f4c6f854"/>
+			</element>
+			<element kind="staticText" uuid="fa8b8115-7d20-4afe-b38e-e87cab07003e" x="10" y="39" width="30" height="20">
+				<text><![CDATA[DNI:]]></text>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e07a915a-5537-4551-b314-9300f4c6f854"/>
+			</element>
+		</band>
+	</detail>
+	<summary height="66" splitType="Stretch">
+		<element kind="textField" uuid="091901a6-015d-454f-9f85-b71cdcdc5a97" x="309" y="30" width="80" height="18">
+			<expression><![CDATA[$F{metodo_pago}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="457ed99f-5d07-4a38-95c0-68d2ebbcc263"/>
+		</element>
+		<element kind="staticText" uuid="f9274b30-321c-4ca8-bc74-dbfbe040dd1f" x="240" y="30" width="64" height="18">
+			<text><![CDATA[metodo pago:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="457ed99f-5d07-4a38-95c0-68d2ebbcc263"/>
+		</element>
+		<element kind="textField" uuid="7a2fee0d-ec27-4772-b175-234de64762c6" x="314" y="6" width="70" height="14">
+			<expression><![CDATA[$F{id_compra}]]></expression>
+		</element>
+		<element kind="staticText" uuid="73201c99-0627-4999-8495-f5349c46e2f7" x="243" y="6" width="64" height="18">
+			<text><![CDATA[CD compra:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="457ed99f-5d07-4a38-95c0-68d2ebbcc263"/>
+		</element>
+		<element kind="textField" uuid="7b8d506d-19fa-4db5-b5f2-1d2c8a770d3e" x="180" y="30" width="56" height="24">
+			<expression><![CDATA[$F{total}]]></expression>
+		</element>
+		<element kind="staticText" uuid="689d89f6-3373-46b3-ba2e-ca72a898a667" x="135" y="30" width="40" height="18">
+			<text><![CDATA[Pago:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="457ed99f-5d07-4a38-95c0-68d2ebbcc263"/>
+		</element>
+		<element kind="textField" uuid="c5c6387b-7f06-4d95-898f-7423f3d618b9" x="150" y="5" width="86" height="20">
+			<expression><![CDATA[$F{fecha_compra}]]></expression>
+		</element>
+		<element kind="staticText" uuid="b6ca67f2-5fd8-494e-8949-29751408d61d" x="120" y="6" width="30" height="18">
+			<text><![CDATA[Fecha:]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="457ed99f-5d07-4a38-95c0-68d2ebbcc263"/>
+		</element>
+	</summary>
+</jasperReport>

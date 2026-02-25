@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprar Entrada | Alianza Lima</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+        :root {
+            --alianza-azul: #004a99;
+            --alianza-dorado: #B8A26A;
+        }
+        body { padding-top: 56px; background-color: #f8f9fa; }
+        .card-compra { max-width: 650px; margin-top: 50px; border-top: 5px solid var(--alianza-dorado); }
+        .btn-principal { background-color: var(--alianza-azul); color: white; }
+        .btn-pago { background-color: #28a745; color: white; font-weight: bold; }
+        .btn-pago:hover { background-color: #218838; color: white; }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        </nav>
+    <div class="container">
+        <div class="card card-compra mx-auto shadow-lg">
+            <div class="card-header bg-white text-dark text-center">
+                <h4 class="mb-0">Finalizar Compra: <span th:text="${entrada.partido}">Partido</span></h4>
+            </div>
+            <div class="card-body">
+                
+                <h5 class="text-primary mb-3">Detalles del Ticket</h5>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p class="mb-1">Zona:</p>
+                        <h6 class="font-weight-bold text-dark" th:text="${entrada.zona}">Occidente</h6>
+                        <p class="mb-1">Estadio:</p>
+                        <h6 class="font-weight-bold text-dark" th:text="${entrada.estadio}">Matute</h6>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <p class="mb-1">Fecha:</p>
+                        <h6 class="font-weight-bold text-dark" th:text="${#dates.format(entrada.fecha_partido, 'dd/MM/yyyy')}">30/11/2025</h6>
+                        <p class="mb-1">Precio Unitario:</p>
+                        <h6 class="font-weight-bold text-dark" th:text="'S/ ' + ${#numbers.formatDecimal(entrada.precio, 1, 2)}">S/ 60.00</h6>
+                    </div>
+                </div>
+                
+                <hr>
+
+                <form th:action="@{/Entradas/finalizar}" th:object="${compraForm}" method="post">
+                    
+                    <input type="hidden" th:field="*{idEntrada}" /> 
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cantidad">Cantidad de Entradas</label>
+                            <input type="number" class="form-control" th:field="*{cantidad}" min="1" 
+                                   th:max="${entrada.cantidad_disponible}" required>
+                            <small class="form-text text-muted">Máx. <span th:text="${entrada.cantidad_disponible}"></span> disponibles.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="metodoPago">Método de Pago</label>
+                            <select class="form-control" th:field="*{metodoPago}" required>
+                                <option value="">-- Seleccione Método --</option>
+                                <option value="Tarjeta">Tarjeta (Crédito/Débito)</option>
+                                <option value="Yape">Yape</option>
+                                <option value="Plin">Plin</option>
+                                <option value="Transferencia">Transferencia Bancaria</option>
+                                <option value="Efectivo">Efectivo (Punto de Venta)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-pago btn-lg px-5">Pagar y Obtener Tickets</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

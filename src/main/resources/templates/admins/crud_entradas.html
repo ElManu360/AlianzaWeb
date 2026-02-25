@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Alianza Lima | Club del Pueblo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --alianza-azul: #B8A26A;
+            --alianza-dorado: #B8A26A;
+            --alianza-blanco: #ffffff;
+            --fondo-partidos: #2c2c2c; /* Color oscuro para la sección de partidos */
+            --texto-claro: #f0f0f0;
+            --linea-separadora: #555555;
+        }
+
+        body {
+            padding-top: 56px;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand { font-weight: bold; }
+
+        /* JUMBOTRON Y IMAGEN DE FONDO */
+        .jumbotron {
+            background-color: var(--alianza-azul);
+            color: var(--alianza-blanco);
+            padding: 5rem 2rem;
+            margin-bottom: 0;
+            border-radius: 0;
+            /* RUTA DE IMAGEN - DEBES ASEGURARTE QUE ESTE CORRECTA */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/img/menuprincipal/baner.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* BOTÓN "HAZTE ÍNTIMO" (DORADO/BEIGE Y TEXTO BLANCO) */
+        .btn-intimo {
+            background-color: var(--alianza-dorado);
+            color: var(--alianza-blanco);
+            border-color: var(--alianza-dorado);
+            font-weight: bold;
+            padding: 10px 30px;
+            font-size: 1.25rem;
+            transition: background-color 0.3s;
+        }
+        .btn-intimo:hover {
+            background-color: #9A845C;
+            color: var(--alianza-blanco);
+            border-color: #9A845C;
+        }
+        .bg-primary { background-color: var(--alianza-azul) !important; }
+
+        /* ESTILOS PARA LA SECCIÓN DE PARTIDOS */
+        .seccion-partidos {
+            background-color: var(--fondo-partidos);
+            color: var(--texto-claro);
+            padding: 3rem 0;
+        }
+        .partido-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .partido-detalle {
+            border-bottom: 1px solid var(--linea-separadora);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .equipo-nombre {
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .vs-texto {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .partido-info-footer {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            margin-top: 1rem;
+        }
+		.escudo-partido {
+		    width: 90px;  /* Ajusta el tamaño según tu preferencia */
+		    height: 90px; /* Asegura que la imagen sea cuadrada */
+		    object-fit: contain; /* Para que la imagen no se recorte ni se estire */
+		    margin-bottom: 10px;
+		}
+		/* ESTILOS PARA LA SECCIÓN DE NOTICIAS */
+		.seccion-noticias {
+		    /* Aquí definimos el fondo de la sección principal de noticias */
+		    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+		                      url('/img/menuprincipal/fondon.jpg'); /* <-- RUTA DE LA IMAGEN DE FONDO */
+		    background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    
+		    padding: 3rem 0;
+		    color: var(--alianza-blanco); /* El texto será blanco para contrastar con el fondo oscuro */
+		}
+
+		/* Modificar el título para que destaque en el fondo oscuro */
+		.titulo-noticias {
+		    font-size: 2rem;
+		    font-weight: 600;
+		    color: var(--alianza-blanco); /* ¡Cambiado a blanco! */
+		    text-align: center;
+		    margin-bottom: 2rem;
+		    padding-bottom: 10px;
+		    border-bottom: 2px solid var(--alianza-dorado);
+		    display: inline-block;
+		    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+		}
+
+		/* Ajustes para las tarjetas (cards) para que se vean bien sobre el fondo oscuro */
+		.card-noticia {
+		    background-color: rgba(255, 255, 255, 0.9); /* Tarjeta semi-transparente o muy clara */
+		    transition: transform 0.3s ease;
+		    border: 1px solid #ddd;
+		    border-radius: 0.5rem;
+		    text-decoration: none;
+		    color: inherit;
+		    display: block;
+		}
+
+		.card-title-link {
+		    /* Mantenemos oscuro el texto principal para que se vea bien dentro de la tarjeta */
+		    color: #343a40; 
+		}
+		.card-title-link:hover {
+		    color: var(--alianza-azul);
+		    text-decoration: none;
+		}
+		/* ESTILOS PARA EL FOOTER */
+		.footer-banner-img {
+		    /* Reemplaza la imagen directamente en el CSS como fondo */
+		    background-image: url('/img/menuprincipal/patrocinadores.jpg');
+		    background-size: cover; /* Asegura que la imagen cubra todo el espacio */
+		    background-position: center; /* Centra la imagen */
+		    background-repeat: no-repeat;
+		    height: 120px; /* Define una altura visible para el banner */
+		    width: 100%;
+		    margin-bottom: 0;
+		}
+		/* ESTILOS PARA EL BANNER DE ENTRADAS */
+		.banner-entradas {
+		    background-color: var(--alianza-azul); /* Color de fallback */
+		    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+		                      url('/img/menuprincipal/entradas.png'); /* <-- RUTA DE LA IMAGEN PROMOCIONAL */
+		    background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    padding: 5rem 0; /* Espacio vertical grande */
+		    text-align: center;
+		    color: var(--alianza-blanco);
+		    margin-bottom: 0; /* Para pegarse a la sección de noticias si es necesario */
+		}
+		/* Estilo para el botón de Entradas (similar al "Hazte Íntimo") */
+		.btn-entradas {
+		    background-color: var(--alianza-dorado);
+		    color: white; /* Texto azul oscuro */
+		    border-color: var(--alianza-dorado);
+		    font-weight: bold;
+		    padding: 12px 40px;
+		    font-size: 1.5rem;
+		    margin-top: 1.5rem;
+		    transition: background-color 0.3s;
+		}
+
+		.btn-entradas:hover {
+		    background-color: #9A845C; /* Tono de hover del dorado */
+		    color: var(--alianza-blanco); /* Cambiamos el texto a blanco en hover */
+		    border-color: #9A845C;
+		}
+    </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+	    <a class="navbar-brand" th:href="@{/Admin/principal}">Alianza Admin</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarNav">
+	        
+	        <ul class="navbar-nav mr-auto">
+	            <li class="nav-item">
+	                <a class="nav-link" th:href="@{/Admin/principal}">Principal</a>
+	            </li>
+	            
+	            <li class="nav-item">
+	                <a class="nav-link" th:href="@{/Admin/ventas}">Reporte de Ventas</a> 
+	            </li>
+	            
+	            <li class="nav-item">
+	                <a class="nav-link" th:href="@{/Admin/entradas}">Gestión de Entradas</a>
+	            </li>
+
+	            <li class="nav-item">
+	                <a class="nav-link" th:href="@{/Admin/usuarios}">Gestión de Usuarios y Roles</a>
+	            </li>
+	            
+	        </ul>
+	        
+	        <ul class="navbar-nav">
+	            <li class="nav-item text-light d-flex align-items-center mr-3">
+	                Bienvenido, <strong class="ml-1" th:text="${nombreUsuarioLogeado}">Admin</strong>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link btn btn-outline-light" th:href="@{/General/logout}" style="border-radius: 0.25rem;">Cerrar Sesión</a> 
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+	
+	<!-- Mantenimiento de Entradas -->
+	<div class="container-fluid py-4">
+	    <div class="row justify-content-center">
+	        <div class="col-12 col-md-4 col-lg-3">
+	            <div class="card shadow-sm mb-4">
+	                <div class="card-body p-4">
+	                    <h1 class="h4 mb-4 text-center">Mantenimiento Entradas</h1>
+	                    
+	                    <form th:action="${entrada.id_entrada} != null ? @{/Admin/editarEntrada/{id}(id=${entrada.id_entrada})} : @{/Admin/entradas}" th:object="${entrada}" method="post">
+	                        <div class="form-group mb-3">
+	                            <label for="inputPar" class="form-label fw-semibold">Partido</label> 
+	                            <input type="text" th:field="*{partido}" class="form-control" id="inputPar" placeholder="Partido" required>
+	                        </div>
+	                        <div class="form-group mb-3">
+	                            <label for="inputFec" class="form-label fw-semibold">Fecha</label> 
+	                            <input type="date" th:field="*{fecha_partido}" class="form-control" id="inputFec" required>
+	                        </div>
+	                        <div class="form-group mb-3">
+	                            <label for="inputEst" class="form-label fw-semibold">Estadio</label> 
+	                            <input type="text" th:field="*{estadio}" class="form-control" id="inputEst" placeholder="Estadio" required>
+	                        </div>
+	                        <div class="form-group mb-3">
+	                            <label for="inputZon" class="form-label fw-semibold">Zona</label> 
+	                            <select th:field="*{zona}" class="form-control" id="inputZon" required>
+	                                <option value="" disabled selected>Seleccione una zona</option>
+	                                <option value="Occidente">Occidente</option>
+	                                <option value="Oriente">Oriente</option>
+	                                <option value="Norte">Norte</option>
+	                                <option value="Sur">Sur</option>
+	                                <option value="VIP">VIP</option>
+	                            </select>
+	                        </div>
+	                        <div class="row mb-3">
+	                            <div class="col-12 col-sm-4 mb-2">
+	                                <div class="form-group">
+	                                    <label for="inputPre" class="form-label fw-semibold">Precio</label> 
+	                                    <input type="number" th:field="*{precio}" class="form-control" id="inputPre" placeholder="0.00" required>
+	                                </div>
+	                            </div>
+	                            <div class="col-12 col-sm-4 mb-2">
+	                                <div class="form-group">
+	                                    <label for="inputCan" class="form-label fw-semibold">Cantidad</label> 
+	                                    <input type="number" th:field="*{cantidad_disponible}" class="form-control" id="inputCan" placeholder="0" required>
+	                                </div>
+	                            </div>
+	                            <div class="col-12 col-sm-4 mb-2">
+	                                <div class="form-group">
+	                                    <label for="inputEst" class="form-label fw-semibold">Estado</label> 
+	                                    <select th:field="*{estado}" class="form-control" id="inputEst">
+	                                        <option value="true">Activo</option>
+	                                        <option value="false">Inactivo</option>
+	                                    </select>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="d-grid gap-2 d-md-flex justify-content-center">
+	                            <button type="submit" class="btn btn-primary px-4" th:text="${entrada.id_entrada} != null ? 'Actualizar' : 'Registrar'"></button>
+	                            <!-- Botón Cancelar (solo visible cuando se está editando una entrada) -->
+	                            <a th:if="${entrada.id_entrada} != null" th:href="@{/Admin/entradas}" class="btn btn-outline-secondary px-4 ms-2">Cancelar</a>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+			<!-- Tabla para visualizar las entradas creadas -->
+	        <div class="col-12 col-md-8 col-lg-9">
+	            <div class="card shadow-sm">
+	                <div class="card-body p-4">
+	                    <div class="table-responsive">
+	                        <table class="table table-hover">
+	                          <thead class="table-light">
+	                            <tr>
+	                                <!--<th scope="col" class="px-3">Id</th>-->
+	                                <th scope="col" class="px-3">Partido</th>
+	                                <th scope="col" class="px-3">Fecha</th>
+	                                <th scope="col" class="px-3">Estadio</th>
+	                                <th scope="col" class="px-3">Zona</th>
+	                                <th scope="col" class="px-3">Precio</th>
+	                                <th scope="col" class="px-3">Cantidad</th>
+	                                <th scope="col" class="px-3">Estado</th>
+	                                <th scope="col" class="px-3 text-center">Acciones</th>
+	                            </tr>
+	                          </thead>
+	                          <tbody>
+	                            <tr th:each="entr : ${listaEntrada}">
+	                                <!--<td scope="row" class="px-3" th:text="${entr.id_entrada}">1</td>-->
+	                                <td class="px-3" th:text="${entr.partido}">Partido</td>
+	                                <td class="px-3" th:text="${entr.fecha_partido}">Fecha</td>
+	                                <td class="px-3" th:text="${entr.estadio}">Estadio</td>
+	                                <td class="px-3" th:text="${entr.zona}">Zona</td>
+	                                <td class="px-3" th:text="${entr.precio}">Precio</td>
+	                                
+	                                <!-- Campo de cantidad editable -->
+	                                <td class="px-3">
+	                                    <form th:action="@{/Admin/actualizarCantidadEntrada}" method="post" class="d-flex align-items-center">
+	                                        <input type="hidden" name="id_entrada" th:value="${entr.id_entrada}">
+	                                        <input type="number" name="cantidad_disponible" th:value="${entr.cantidad_disponible}"
+	                                                class="form-control form-control-sm me-2" style="width: 80px;" min="0" required>
+	                                        <button type="submit" class="btn btn-success btn-sm" title="Actualizar cantidad">
+	                                            <i class="bi bi-check-circle"></i>
+	                                        </button>
+	                                    </form>
+	                                </td>
+	                                
+	                                <td class="px-3">
+	                                    <span th:if="${entr.estado}" class="badge bg-success">Activo</span>
+	                                    <span th:unless="${entr.estado}" class="badge bg-secondary">Inactivo</span>
+	                                </td>
+	                                <td class="px-3">
+	                                    <div class="d-flex justify-content-center">
+	                                        <a th:href="@{/Admin/editarEntrada/{id}(id=${entr.id_entrada})}" class="btn btn-primary btn-sm me-2" title="Editar">
+	                                            <i class="bi bi-pencil-square"></i>
+	                                        </a>
+	                                        <form th:action="@{/Admin/eliminarEntrada/{id}(id=${entr.id_entrada})}" method="post">
+	                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro que deseas eliminar este producto?');">
+	                                                <i class="bi bi-trash"></i>
+	                                            </button>
+	                                        </form>
+	                                    </div>
+	                                </td>
+	                            </tr>
+	                          </tbody>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

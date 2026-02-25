@@ -1,0 +1,144 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Proveedor | Alianza Lima</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        :root {
+            --proveedor-azul: #004a99;
+            --proveedor-oscuro: #212529;
+            --proveedor-dorado: #B8A26A;
+            --proveedor-blanco: #ffffff;
+        }
+
+        body {
+            /* Configuración del fondo de imagen para el Portal Proveedor */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                              url('/img/menuprincipal/proveedor.png'); /* <<-- RUTA DE LA IMAGEN DE FONDO */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 56px;
+            color: var(--proveedor-blanco);
+        }
+        
+        /* Ajuste para el color del Navbar, similar al pantallazo */
+        .navbar-custom {
+            background-color: #2c2c2c !important; /* Gris oscuro para Navbar */
+        }
+        
+        /* ESTILOS PARA LAS TARJETAS (PANELES) - AHORA OSCURAS Y TRANSPARENTES */
+        .card-menu {
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo negro con 60% de opacidad */
+            color: var(--proveedor-blanco); /* Texto blanco para contrastar */
+            border-left: 5px solid var(--proveedor-dorado);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(184, 162, 106, 0.4); /* Borde sutil dorado transparente */
+        }
+        
+        .card-menu:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(184, 162, 106, 0.5);
+            background-color: rgba(0, 0, 0, 0.8); /* Más oscuro en hover */
+        }
+        
+        .welcome-section {
+            padding: 3rem 0;
+            text-shadow: 2px 2px 4px #000000;
+        }
+        
+        .welcome-section h1 {
+            color: var(--proveedor-dorado);
+            font-size: 2.5rem; 
+        }
+        .welcome-section p.lead {
+            font-size: 1.2rem;
+        }
+        /* Ajuste para los títulos y texto dentro de las tarjetas oscuras */
+        .card-title {
+            color: var(--proveedor-blanco); /* Título de tarjeta blanco */
+        }
+        .card-text {
+            color: #ccc; /* Texto del cuerpo de tarjeta ligeramente gris */
+        }
+        /* Ajuste para el botón dentro de la tarjeta */
+        .card-menu .btn-info {
+            background-color: var(--proveedor-dorado);
+            border-color: var(--proveedor-dorado);
+            color: #333; /* Texto oscuro en botón dorado */
+            font-weight: bold;
+        }
+        .card-menu .btn-info:hover {
+            background-color: #9A845C; /* Tono de hover dorado */
+            border-color: #9A845C;
+            color: var(--proveedor-blanco); /* Texto blanco en hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <a class="navbar-brand" th:href="@{/Proveedor/menu}">Portal Proveedores</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/Proveedor/menu}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/Proveedor/productos}">Gestión de Productos (CRUD)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/Proveedor/pedidos}">Órdenes de Compra</a>
+                </li>
+            </ul>
+            
+            <ul class="navbar-nav">
+                <li class="nav-item text-light d-flex align-items-center mr-3">
+                    Bienvenido, <strong class="ml-1" th:text="${nombreUsuarioLogeado}">Proveedor</strong>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-danger" th:href="@{/General/logout}">Cerrar Sesión</a> 
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container welcome-section text-center">
+        <h1 class="mb-4">Panel de Logística</h1>
+        <p class="lead">Gestione el inventario y las órdenes de compra de "merchandising" del club.</p>
+        
+        <div class="row mt-5 justify-content-center">
+            
+            <div class="col-md-5 mb-4">
+                <div class="card card-menu">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase font-weight-bold">Inventario de Productos</h5>
+                        <p class="card-text">Administra el catálogo: precios, stock y categorías.</p>
+                        <a th:href="@{/Proveedor/productos}" class="btn btn-sm btn-info">Ir a Gestión</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-5 mb-4">
+                <div class="card card-menu">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase font-weight-bold">Órdenes Pendientes</h5>
+                        <p class="card-text">Revisa las solicitudes de compra del club.</p>
+                        <a th:href="@{/Proveedor/pedidos}" class="btn btn-sm btn-info">Ver Órdenes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

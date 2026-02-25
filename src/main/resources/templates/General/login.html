@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Alianza Lima | Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    
+	<style>
+	    :root {
+	        --alianza-azul: #004a99; /* Azul de contraste */
+	        --alianza-dorado: #B8A26A;
+	        --alianza-blanco: #ffffff;
+	    }
+	    body {
+	        /* Reemplaza el background-color por background-image */
+	        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Capa oscura para mejor contraste del texto */
+	                          url('/img/menuprincipal/bannerinferior.jpg'); /* <<-- ¡RUTA DE TU IMAGEN DE FONDO! */
+							  background-size: cover;
+							          background-position: center;
+							          background-repeat: no-repeat;
+							          background-attachment: fixed;
+
+							          display: flex;
+							          justify-content: center;
+							          align-items: center;
+							          height: 100vh;
+							          margin: 0;
+							      }
+							      .login-card {
+							          width: 100%;
+							          max-width: 400px;
+							          padding: 2rem;
+							          border-radius: 0.5rem;
+							          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+							          /* CAMBIO CLAVE AQUÍ: Fondo negro semi-transparente */
+							          background-color: rgba(0, 0, 0, 0.7); /* Negro con 70% de opacidad */
+							          color: var(--alianza-blanco); /* El texto general de la tarjeta ahora será blanco */
+							      }
+							      .login-card h2 {
+							          /* El título seguirá siendo azul de Alianza para contraste */
+							          color: var(--alianza-azul); 
+							          margin-bottom: 1.5rem;
+							          font-weight: 700;
+							          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Sombra para que destaque más */
+							      }
+							      /* Aseguramos que las etiquetas (labels) sean blancas para verse bien */
+							      .login-card label {
+							          color: var(--alianza-blanco);
+							      }
+							      /* Los inputs no cambian mucho, pero el texto dentro será visible */
+							      .form-control {
+							          background-color: rgba(255, 255, 255, 0.9); /* Inputs casi blancos para mejor entrada de texto */
+							          border-color: rgba(255, 255, 255, 0.3); /* Borde sutil */
+							          color: #333; /* Texto de input oscuro */
+							      }
+							      .form-control::placeholder {
+							          color: #888; /* Color del placeholder */
+							      }
+							      .btn-login {
+							          background-color: var(--alianza-dorado);
+							          color: var(--alianza-blanco);
+							          border-color: var(--alianza-dorado);
+							          font-weight: bold;
+							          transition: background-color 0.3s;
+							      }
+							      .btn-login:hover {
+							          background-color: #9A845C;
+							          color: var(--alianza-blanco);
+							          border-color: #9A845C;
+							      }
+							      .alert-danger {
+							          margin-top: -1rem;
+							          margin-bottom: 1rem;
+							          color: #fff; /* Texto del error blanco */
+							          background-color: rgba(220, 53, 69, 0.8); /* Fondo rojo semi-transparente */
+							          border-color: rgba(220, 53, 69, 0.9);
+							      }
+							      /* Ajuste para el enlace "Volver a la página principal" */
+							      .login-card .text-secondary {
+							          color: rgba(255, 255, 255, 0.8) !important; /* Texto blanco semi-transparente */
+							      }
+							      .login-card .text-secondary:hover {
+							          color: var(--alianza-blanco) !important; /* Blanco sólido al hacer hover */
+							      }
+							  </style>
+</head>
+<body>
+
+<div class="login-card text-center">
+    
+    <img src="/img/menuprincipal/alianza.png" alt="Escudo Alianza Lima" style="width: 80px; margin-bottom: 1rem;">
+    <h2>Acceso al Portal</h2>
+    
+    <div th:if="${errorLogin}" class="alert alert-danger" role="alert">
+        <span th:text="${mensajeError}">Error: Usuario o contraseña incorrectos.</span>
+    </div>
+
+    <form th:action="@{/General/login}" th:object="${Login}" method="post">
+        
+        <div class="form-group text-left">
+            <label for="nombreUsuario">Usuario:</label>
+            <input type="text" class="form-control" id="nombreUsuario" th:field="*{nombreUsuario}" placeholder="Ingresa tu nombre de usuario" required>
+        </div>
+        
+        <div class="form-group text-left">
+            <label for="password">Contraseña:</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Ingresa tu contraseña" required>
+        </div>
+        
+		<button type="submit" class="btn btn-login btn-block mt-4">INGRESAR</button>
+		</form>
+		    
+		<div class="mt-3">
+		    <p class="small text-center mb-1">
+		        <a th:href="@{/General/registro}" class="text-secondary" style="text-decoration: underline;">
+		            ¿No tienes cuenta? ¡Regístrate aquí!
+		        </a>
+		    </p>
+		    
+		    <a th:href="@{/General/menu}" class="small text-secondary">Volver a la página principal</a>
+		</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

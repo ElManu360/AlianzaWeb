@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Alianza Lima | Club del Pueblo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a2e0f1f6b1.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --alianza-azul: #B8A26A;
+            --alianza-dorado: #B8A26A;
+            --alianza-blanco: #ffffff;
+        }
+
+        body {
+            padding-top: 56px;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand { font-weight: bold; }
+        .bg-primary { background-color: var(--alianza-azul) !important; }
+
+        .footer {
+            background-color: var(--alianza-azul);
+            color: var(--alianza-blanco);
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 1rem 0;
+        }
+
+        .combo-section {
+            position: relative;
+            background: url('/img/compraentrada/estadio2.jpg') center center / cover no-repeat;
+            color: white;
+        }
+        .combo-section2 {
+            position: relative;
+            background: url('/img/compraentrada/estadio3.jpg') center center / cover no-repeat;
+            color: white;
+        }
+        .combo-section3 {
+            position: relative;
+            background: url('/img/compraentrada/estadio4.jpg') center center / cover no-repeat;
+            color: white;
+        }						
+
+        .combo-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4rem 0;
+        }
+
+        .combo-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .combo-logo { height: 60px; }
+
+        .combo-card {
+            background-color: white;
+            color: black;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            max-width: 800px;
+        }
+
+        .combo-card-logo { height: 60px; }
+
+        .btn-comprar {
+            background-color: #B8A26A;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-comprar:hover {
+            background-color: #a48f5f;
+            color: white;
+        }
+
+        .formulario-compra {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            max-width: 800px;
+            margin: 20px auto 0;
+            padding: 2rem;
+            color: black;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .combo-card { flex-direction: column; text-align: center; }
+            .btn-comprar { margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ SUPERIOR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <a class="navbar-brand" href="/General/menu">Alianza Lima</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+			    <li class="nav-item"><a class="nav-link" href="/General/menu">Inicio</a></li>
+			    
+			    <li class="nav-item">
+			        <a class="nav-link" th:href="@{/Entradas/disponibles}">Entradas</a>
+			    </li>
+			    
+			    <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+			    <li class="nav-item"><a class="nav-link" href="#">Carrito</a></li>
+			</ul>
+            <ul class="navbar-nav">
+                <li class="nav-item text-light d-flex align-items-center mr-3">
+                    Bienvenido, <strong class="ml-1" th:text="${nombreUsuarioLogeado}">Usuario</strong>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-light" href="/General/logout">Cerrar Sesión</a> 
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SECCIONES DE ENTRADAS -->
+	<div id="entradas-container">
+	    
+	    <div class="container text-center py-5">
+	        <h1 class="combo-title my-3" style="color: #004a99;">🎟️ Entradas Disponibles 🎟️</h1>
+	    </div>
+
+	    <div th:each="entrada : ${listaEntradas}">
+	        
+	        <section class="combo-section">
+	            <div class="combo-overlay">
+	                <div class="container text-center text-white py-5">
+	                    
+	                    <div class="d-flex justify-content-center align-items-center mb-3 flex-wrap">
+	                        <img src="/img/compraentrada/alianzaentrada.png" class="mx-3 combo-logo" alt="Logo">
+	                        <h1 class="combo-title my-3" th:text="${entrada.partido} + ' - Zona ' + ${entrada.zona}">Partido vs Rival - Zona Occidente</h1>
+	                        <img src="/img/compraentrada/alianzaentrada2.png" class="mx-3 combo-logo" alt="Logo">
+	                    </div>
+
+	                    <div class="combo-card mx-auto d-flex align-items-center justify-content-between p-3 flex-wrap">
+	                        <div class="d-flex align-items-center flex-wrap">
+	                            <img src="/img/compraentrada/alianzaentrada3.png" class="combo-card-logo mr-3 mb-2 mb-md-0" alt="Ticket">
+	                            <div class="text-left">
+	                                <p class="m-0 text-uppercase text-secondary small font-weight-bold" th:text="'Fecha: ' + ${#dates.format(entrada.fecha_partido, 'dd/MMM')}">Fecha: 30/Nov</p>
+	                                <h5 class="m-0 font-weight-bold" th:text="'S/ ' + ${#numbers.formatDecimal(entrada.precio, 1, 2)} + ' | Stock: ' + ${entrada.cantidad_disponible}">S/ 60.00 | Stock: 200</h5>
+	                            </div>
+	                        </div>
+	                        
+	                        <a th:href="@{/Entradas/comprar/__${entrada.id_entrada}__}" class="btn btn-comprar mt-3 mt-md-0">
+	                            <i class="fas fa-ticket-alt mr-2"></i> Comprar Ahora
+	                        </a>
+	                    </div>
+	                </div>
+	            </div>
+	        </section>
+	    </div>
+	    
+	    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 Club Alianza Lima - Todos los derechos reservados</p>
+    </footer>
+
+    
+</body>
+</html>
