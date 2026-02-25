@@ -4,7 +4,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Fase de ejecución
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-oracle
 COPY --from=build /target/*.jar app.jar
 EXPOSE 8084
 ENTRYPOINT ["java","-jar","app.jar"]
